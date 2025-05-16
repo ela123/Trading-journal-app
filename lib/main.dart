@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 //import 'package:myapp/pages/welcome.dart';
 //import 'package:myapp/pages/login.dart';
 import 'package:myapp/pages/journal.dart';
+import 'package:myapp/pages/journal_sample_view.dart';
+import 'package:myapp/pages/trade_pie_chart.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,7 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: TradeJournal(),
+      home: JournalSampleView(),
     );
   }
 }

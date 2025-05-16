@@ -53,7 +53,7 @@ class Login extends StatelessWidget {
                       custom(context),
                       const SizedBox(height: 25.0),
                       loginbutton(context),
-                      const LoginOptions(Signup(),"Sign Up"),
+                      const LoginOptions(Signup(),"Sign In"),
 
                     ],
                   ),

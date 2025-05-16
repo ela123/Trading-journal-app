@@ -7,40 +7,46 @@ class Welcome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final buttonWidth = MediaQuery.of(context).size.width;
-    //final height = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
       body: Stack(
         children: [
-          // Background image
+          // Background Image
           Positioned.fill(
-            child: Image.asset("assets/bg1.png", fit: BoxFit.cover),
+            child: Image.asset(
+              "assets/bg1.png",
+              fit: BoxFit.cover,
+            ),
           ),
 
-          // Positioned text - OUT of the button area
+          // Welcome Text
           Positioned(
-            top: 100, // Adjust position as needed
-            left: 20,
-            right: 20,
+            top: screenHeight * 0.15, // 15% from top
+            left: screenWidth * 0.05, // 5% from left
+            right: screenWidth * 0.05, // 5% from right
             child: Container(
               padding: const EdgeInsets.all(20),
-              //color: Colors.black.withOpacity(0.5),
               child: RichText(
                 textAlign: TextAlign.center,
-                text: const TextSpan(
+                text: TextSpan(
                   children: [
                     TextSpan(
                       text: 'Welcome Back!\n',
                       style: TextStyle(
-                        fontSize: 45.0,
+                        fontSize: screenWidth * 0.09, // Scaled font size
                         fontWeight: FontWeight.w600,
                         color: Colors.white,
                       ),
                     ),
                     TextSpan(
-                      text: '\nEnter personal details to your employee account',
-                      style: TextStyle(fontSize: 20, color: Colors.white),
+                      text:
+                          '\n“Plan your trade and trade your plan.” \n– Anonymous',
+                      style: TextStyle(
+                        fontSize: screenWidth * 0.05,
+                        color: Colors.white,
+                      ),
                     ),
                   ],
                 ),
@@ -54,23 +60,24 @@ class Welcome extends StatelessWidget {
             left: 0,
             right: 0,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 customButton(
                   context,
                   "Login",
-                  buttonWidth * 0.5,
+                  screenWidth * 0.5,
                   Colors.transparent,
                   Colors.white,
-                  Login(),
+                  const Login(),
+                  topLeft: false,
                 ),
                 customButton(
                   context,
                   "Sign Up",
-                  buttonWidth * 0.5,
+                  screenWidth * 0.5,
                   Colors.white,
                   Colors.black,
-                  Signup(),
+                  const Signup(),
+                  topLeft: true,
                 ),
               ],
             ),
@@ -84,39 +91,38 @@ class Welcome extends StatelessWidget {
     BuildContext context,
     String text,
     double width,
-    Color custom,
-    Color textcolor,
-    Widget onTap,
-  ) {
-    // Adjust the width as needed
-
-    return  SizedBox(
-        width: width, // full width
-        child: TextButton(
-          onPressed: () {
-            {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => onTap),
-              );
-            }
-          },
-          style: TextButton.styleFrom(
-            backgroundColor: custom, // fully transparent background
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(topLeft: Radius.circular(50)),
+    Color backgroundColor,
+    Color textColor,
+    Widget targetPage, {
+    bool topLeft = false,
+  }) {
+    return SizedBox(
+      width: width,
+      child: TextButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => targetPage),
+          );
+        },
+        style: TextButton.styleFrom(
+          backgroundColor: backgroundColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+              topLeft: topLeft ? const Radius.circular(50) : Radius.zero,
             ),
-            padding: const EdgeInsets.symmetric(vertical: 15),
           ),
-          child: Text(
-            text,
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: textcolor, // text color
-            ),
+          padding: const EdgeInsets.symmetric(vertical: 18),
+        ),
+        child: Text(
+          text,
+          style: TextStyle(
+            fontSize: width * 0.08, // Button font size relative to width
+            fontWeight: FontWeight.bold,
+            color: textColor,
           ),
         ),
+      ),
     );
   }
 }

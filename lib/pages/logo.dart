@@ -1,200 +1,93 @@
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+//import 'signup.dart';
 
+class Logo extends StatelessWidget {
+  final IconData icon;
 
-Widget customTextFormField(BuildContext context, String name, String hint) {
-  return Padding(
-    padding: const EdgeInsets.only(left: 8.0, right: 8),
-    child: TextFormField(
-      decoration: InputDecoration(
-        label: Text(name),
-        hintText: hint,
-        contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-        hintStyle: const TextStyle(color: Colors.black26),
-        border: OutlineInputBorder(
-          borderSide: const BorderSide(
-            color: Colors.black, // Default border color
-          ),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderSide: const BorderSide(
-            color: Colors.black, // Default border color
-          ),
-          borderRadius: BorderRadius.circular(10),
-        ),
-      ),
-    ),
-  );
+  const Logo(this.icon, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return CircleAvatar(
+      radius: 22,
+      backgroundColor: Colors.grey.shade200,
+      child: Icon(icon, size: 20, color: Colors.black),
+    );
+  }
 }
 
-Widget buysell(BuildContext context, String text, bool value) {
-  return Row(
-    children: [
-      Row(
-        children: [
-          Text(text, style: TextStyle(color: Colors.black, fontSize: 14)),
-          Checkbox(
-            value: value,
-            onChanged: (bool? value) {},
-            activeColor:
-                Theme.of(
-                  context,
-                ).primaryColor, // Or replace with a specific color
-          ),
-        ],
-      ),
-    ],
-  );
-}
+class LoginOptions extends StatelessWidget {
+  final String text;
+  final Widget page;
+  const LoginOptions(this.page, this.text, {super.key});
 
-Widget smallfilds(BuildContext context, String label, String hint) {
-  return Flexible(
-    flex: 1,
-    child: Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 6.0),
-      child: TextField(
-        decoration: InputDecoration(
-          labelText: label,
-          hintText: hint,
-          isDense: true,
-          contentPadding: const EdgeInsets.symmetric(
-            horizontal: 8,
-            vertical: 10,
-          ),
-          hintStyle: const TextStyle(color: Colors.black26, fontSize: 12),
-          labelStyle: const TextStyle(fontSize: 12),
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-          enabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.black),
-            borderRadius: BorderRadius.circular(10),
-          ),
-        ),
-        style: const TextStyle(fontSize: 12),
-      ),
-    ),
-  );
-}
-
-Widget smallfildsDate(BuildContext context, String label) {
-  final TextEditingController _controller = TextEditingController();
-  final String currentDate =
-      DateTime.now().toLocal().toString().split(' ')[0]; // yyyy-mm-dd
-
-  return Flexible(
-    flex: 1,
-    child: Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 6.0),
-      child: GestureDetector(
-        onTap: () async {
-          final DateTime? picked = await showDatePicker(
-            context: context,
-            initialDate: DateTime.now(),
-            firstDate: DateTime(2000),
-            lastDate: DateTime(2100),
-          );
-          if (picked != null) {
-            _controller.text = picked.toLocal().toString().split(' ')[0];
-          }
-        },
-        child: AbsorbPointer(
-          child: TextField(
-            controller: _controller,
-            decoration: InputDecoration(
-              labelText: label,
-              hintText: currentDate,
-              isDense: true,
-              contentPadding: const EdgeInsets.symmetric(
-                horizontal: 8,
-                vertical: 10,
-              ),
-              hintStyle: const TextStyle(color: Colors.black26, fontSize: 12),
-              labelStyle: const TextStyle(fontSize: 12),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderSide: const BorderSide(color: Colors.black),
-                borderRadius: BorderRadius.circular(10),
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        // --- Divider with "Sign up with" label ---
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              child: Divider(
+                thickness: 0.7,
+                color: Colors.grey.withOpacity(0.5),
               ),
             ),
-            style: const TextStyle(fontSize: 12),
-          ),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10),
+              child: Text(
+                'Sign up with',
+                style: TextStyle(color: Colors.black45),
+              ),
+            ),
+            Expanded(
+              child: Divider(
+                thickness: 0.7,
+                color: Colors.grey.withOpacity(0.5),
+              ),
+            ),
+          ],
         ),
-      ),
-    ),
-  );
-}
-Widget paragraphField(String label) {
-  return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 6.0),
-    child: TextFormField(
-      maxLines: null,
-      //minLines: 3,
-      keyboardType: TextInputType.multiline,
-      decoration: InputDecoration(
-        labelText: label,
-        alignLabelWithHint: true,
-        isDense: true,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8.0),
-        ),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-      ),
-    ),
-  );
-}
-Widget journalbutton(BuildContext context) {
-  final screenWidth = MediaQuery.of(context).size.width;
-  return SizedBox(
-    width: double.infinity,
-    child: ElevatedButton(
-      onPressed: () {
-        // TODO: Add sign-up logic
-      },
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.deepPurple,
-        padding: EdgeInsets.symmetric(vertical: 16),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      ),
-      child: Text(
-        'Add Journal',
-        style: TextStyle(
-          color: Colors.white,
-          fontWeight: FontWeight.bold,
-          fontSize: screenWidth * 0.045,
-        ),
-      ),
-    ),
-  );
-}
-Widget sessionDropdownField({required String label}) {
-  final List<String> sessions = ['Asian', 'New York', 'London'];
-  String? selectedSession;
 
-  return StatefulBuilder(
-    builder: (context, setState) {
-      return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 6.0),
-        child: DropdownButtonFormField<String>(
-          decoration: InputDecoration(
-            labelText: label,
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0)),
-            isDense: true,
-            contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-          ),
-          value: selectedSession,
-          items: sessions.map((session) {
-            return DropdownMenuItem<String>(
-              value: session,
-              child: Text(session),
-            );
-          }).toList(),
-          onChanged: (value) {
-            setState(() {
-              selectedSession = value;
-            });
-          },
+        const SizedBox(height: 25.0),
+
+        // --- Social Media Icons Row ---
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: const [Logo(FontAwesomeIcons.google)],
         ),
-      );
-    },
-  );
+
+        const SizedBox(height: 25.0),
+
+        // --- Sign Up Redirect ---
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              'Don\'t have an account? ',
+              style: TextStyle(color: Colors.black45),
+            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => page),
+                );
+              },
+              child: Text(
+                text,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
 }
