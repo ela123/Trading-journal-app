@@ -59,22 +59,105 @@ class _JournalSampleViewState extends State<JournalSampleView> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            _entryRow("Pair", entry["pair"]),
-                            _entryRow("Date", entry["date"]),
-                            _entryRow("Time", entry["time"]),
-                            _entryRow("Session", entry["session"]),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                // Left column
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      _entryRow("Pair", entry["pair"]),
+                                      _entryRow("Session", entry["session"]),
+                                    ],
+                                  ),
+                                ),
+                                // Right column
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      _entryRow("Date", entry["date"]),
+                                      _entryRow("Time", entry["time"]),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
                             const Divider(),
-                            _entryRow("Buy", entry["buy"] ? "Yes" : "No"),
-                            _entryRow("Sell", entry["sell"] ? "Yes" : "No"),
-                            _entryRow("Win", entry["win"] ? "Yes" : "No"),
-                            _entryRow("Fail", entry["fail"] ? "Yes" : "No"),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                // Left column
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      _entryRow(
+                                        "Buy",
+                                        entry["buy"] ? "Yes" : "No",
+                                      ),
+                                      _entryRow(
+                                        "Sell",
+                                        entry["sell"] ? "Yes" : "No",
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                // Right column
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      _entryRow(
+                                        "Win",
+                                        entry["win"] ? "Yes" : "No",
+                                      ),
+                                      _entryRow(
+                                        "Fail",
+                                        entry["fail"] ? "Yes" : "No",
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+
                             const Divider(),
-                            _entryRow("Entry", entry["entry"]),
-                            _entryRow("TP", entry["tp"]),
-                            _entryRow("SL", entry["sl"]),
-                            _entryRow("TP(\$)", entry["tp_dollar"]),
-                            _entryRow("SL(\$)", entry["sl_dollar"]),
-                            _entryRow("R:R", entry["rr"]),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                // Left column
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      _entryRow("Entry", entry["entry"]),
+                                      _entryRow("TP", entry["tp"]),
+                                      _entryRow("SL", entry["sl"]),
+                                    ],
+                                  ),
+                                ),
+                                // Right column
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      _entryRow("TP(\$)", entry["tp_dollar"]),
+                                      _entryRow("SL(\$)", entry["sl_dollar"]),
+                                      _entryRow("R:R", entry["rr"]),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+
                             const Divider(),
                             _entryRow("Reason", entry["reason"]),
                             _entryRow("Note", entry["note"]),
