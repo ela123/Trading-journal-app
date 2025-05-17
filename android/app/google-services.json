@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "332759723477",
+    "project_id": "tradeapp-be355",
+    "storage_bucket": "tradeapp-be355.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:332759723477:android:13b39fcc8593e88582e15c",
+        "android_client_info": {
+          "package_name": "com.example.myapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "332759723477-jfhffi95d1dridvdubue7isf2ghmcrbq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyALXklh_q4r0DdOboDvoWhYuUx-jbzL0go"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "332759723477-jfhffi95d1dridvdubue7isf2ghmcrbq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

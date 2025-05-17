@@ -6,6 +6,7 @@ import 'package:myapp/pages/journal_sample_view.dart';
 import 'package:myapp/pages/trade_pie_chart.dart';
 import 'package:myapp/pages/market_page.dart';
 import 'package:myapp/pages/price.dart';
+import 'package:myapp/pages/welcome.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,9 +18,6 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: MarketPage(),
-    );
+    return MaterialApp(debugShowCheckedModeBanner: false, home: Welcome());
   }
 }
