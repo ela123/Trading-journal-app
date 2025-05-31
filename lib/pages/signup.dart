@@ -175,19 +175,4 @@ Widget loginoption(BuildContext context) {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const Signup()),
-              );
-            },
-            child: Text(
-              'Sign up',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).colorScheme.primary,
-              ),
-            ),
-          ),
-        ],
-      ),
-    ],
-  );
-}
+                MaterialPageRoute(builder: (context) => c
