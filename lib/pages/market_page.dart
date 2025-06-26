@@ -4,6 +4,8 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class MarketPage extends StatefulWidget {
+  const MarketPage({super.key});
+
   @override
   _MarketPageState createState() => _MarketPageState();
 }

@@ -165,7 +165,7 @@ Widget smallfilds(BuildContext context, String label, String hint) {
 }
 
 Widget smallfildsDate(BuildContext context, String label) {
-  final TextEditingController _controller = TextEditingController();
+  final TextEditingController controller = TextEditingController();
   final String currentDate =
       DateTime.now().toLocal().toString().split(' ')[0]; // yyyy-mm-dd
 
@@ -182,12 +182,12 @@ Widget smallfildsDate(BuildContext context, String label) {
             lastDate: DateTime(2100),
           );
           if (picked != null) {
-            _controller.text = picked.toLocal().toString().split(' ')[0];
+            controller.text = picked.toLocal().toString().split(' ')[0];
           }
         },
         child: AbsorbPointer(
           child: TextField(
-            controller: _controller,
+            controller: controller,
             decoration: InputDecoration(
               labelText: label,
               hintText: currentDate,
