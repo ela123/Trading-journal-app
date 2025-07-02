@@ -37,137 +37,130 @@ class _JournalSampleViewState extends State<JournalSampleView> {
         title: const Text('Journal Entries'),
         backgroundColor: Colors.deepPurple,
       ),
-      body:
-          journalEntries.isEmpty
-              ? const Center(child: CircularProgressIndicator())
-              : ListView(
-                padding: const EdgeInsets.all(12.0),
-                children: [
-                  // ✅ Pie Chart at the top
-                  Center(child: TradePieChart(journalData: journalEntries)),
-                  const SizedBox(height: 16),
-                  // ✅ Entries List
-                  ...journalEntries.map(
-                    (entry) => Card(
-                      elevation: 4,
-                      margin: const EdgeInsets.symmetric(vertical: 8.0),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                // Left column
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      _entryRow("Pair", entry["pair"]),
-                                      _entryRow("Session", entry["session"]),
-                                    ],
-                                  ),
-                                ),
-                                // Right column
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      _entryRow("Date", entry["date"]),
-                                      _entryRow("Time", entry["time"]),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const Divider(),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                // Left column
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      _entryRow(
-                                        "Buy",
-                                        entry["buy"] ? "Yes" : "No",
-                                      ),
-                                      _entryRow(
-                                        "Sell",
-                                        entry["sell"] ? "Yes" : "No",
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                // Right column
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      _entryRow(
-                                        "Win",
-                                        entry["win"] ? "Yes" : "No",
-                                      ),
-                                      _entryRow(
-                                        "Fail",
-                                        entry["fail"] ? "Yes" : "No",
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
+      body: journalEntries.isEmpty
+          ? const Center(child: CircularProgressIndicator())
+          : ListView(
+              padding: const EdgeInsets.all(12.0),
+              children: [
+                // ✅ Pie Chart at the top
+                Center(child: TradePieChart(journalData: journalEntries)),
+                const SizedBox(height: 16),
+                // ✅ Entries List reversed
+                ...journalEntries
+                    .asMap()
+                    .entries
+                    .toList()
+                    .reversed
+                    .map((entry) {
+                  final index = entry.key + 1; // Trade 1 is most recent
+                  final data = entry.value;
 
-                            const Divider(),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                // Left column
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      _entryRow("Entry", entry["entry"]),
-                                      _entryRow("TP", entry["tp"]),
-                                      _entryRow("SL", entry["sl"]),
-                                    ],
-                                  ),
+                  return Card(
+                    elevation: 4,
+                    margin: const EdgeInsets.symmetric(vertical: 8.0),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12.0),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                "Trade $index",
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.deepPurple,
                                 ),
-                                // Right column
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      _entryRow("TP(\$)", entry["tp_dollar"]),
-                                      _entryRow("SL(\$)", entry["sl_dollar"]),
-                                      _entryRow("R:R", entry["rr"]),
-                                    ],
-                                  ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 8),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    _entryRow("Pair", data["pair"]),
+                                    _entryRow("Session", data["session"]),
+                                  ],
                                 ),
-                              ],
-                            ),
-
-                            const Divider(),
-                            _entryRow("Reason", entry["reason"]),
-                            _entryRow("Note", entry["note"]),
-                          ],
-                        ),
+                              ),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    _entryRow("Date", data["date"]),
+                                    _entryRow("Time", data["time"]),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          const Divider(),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    _entryRow("Buy", data["buy"] ? "Yes" : "No"),
+                                    _entryRow("Sell", data["sell"] ? "Yes" : "No"),
+                                  ],
+                                ),
+                              ),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    _entryRow("Win", data["win"] ? "Yes" : "No"),
+                                    _entryRow("Fail", data["fail"] ? "Yes" : "No"),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          const Divider(),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    _entryRow("Entry", data["entry"]),
+                                    _entryRow("TP", data["tp"]),
+                                    _entryRow("SL", data["sl"]),
+                                  ],
+                                ),
+                              ),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    _entryRow("TP(\$)", data["tp_dollar"]),
+                                    _entryRow("SL(\$)", data["sl_dollar"]),
+                                    _entryRow("R:R", data["rr"]),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          const Divider(),
+                          _entryRow("Reason", data["reason"]),
+                          _entryRow("Note", data["note"]),
+                        ],
                       ),
                     ),
-                  ),
-                ],
-              ),
+                  );
+                }).toList(),
+              ],
+            ),
     );
   }
 
@@ -181,7 +174,12 @@ class _JournalSampleViewState extends State<JournalSampleView> {
             "$label: ",
             style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
           ),
-          Expanded(child: Text("$value", style: const TextStyle(fontSize: 13))),
+          Expanded(
+            child: Text(
+              "$value",
+              style: const TextStyle(fontSize: 13),
+            ),
+          ),
         ],
       ),
     );
