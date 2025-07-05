@@ -158,7 +158,7 @@ class _JournalSampleViewState extends State<JournalSampleView> {
                       ),
                     ),
                   );
-                }).toList(),
+                }),
               ],
             ),
     );
